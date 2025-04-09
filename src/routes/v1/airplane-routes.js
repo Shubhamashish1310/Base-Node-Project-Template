@@ -5,7 +5,10 @@ const router = express.Router();
 console.log("Inside airplane-routes.js");
 // /api/v1/airplanes
 router.post('/',Airplanemiddleware.validateAirplaneRequest, AirplaneController.createAirplane);
-
+// /api/v1/airplanes/
 router.get('/', AirplaneController.getAirplanes);
+// /api/v1/airplanes/:id
+router.get('/:id', AirplaneController.getAirplaneById);
 
+router.delete('/:id', AirplaneController.destroyAirplane);
 module.exports = router;

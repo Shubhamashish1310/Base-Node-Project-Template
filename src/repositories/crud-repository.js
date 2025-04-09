@@ -1,4 +1,6 @@
+const {StatusCodes} = require('http-status-codes')
 const { Logger } = require('../config');
+const AppError = require('../utils/errors/app-error');
 
 class CrudRepository {
     constructor(model) {
@@ -18,12 +20,14 @@ class CrudRepository {
 
     // Delete an instance by ID
     async destroy(id) {
-        
             const instance = await this.model.destroy({
                 where: {
                     id: id
                 }
             });
+            if (!instance) {
+                throw new AppError(`Instance with ID ${id} not found`, 404, false);
+            }
             return instance;
         
     }
@@ -31,6 +35,9 @@ class CrudRepository {
     // Get an instance by ID
     async get(id) {      
             const instance = await this.model.findByPk(id);
+            if (!instance) {
+                throw new AppError(`Instance with ID ${id} not found`, 404, false);
+            }
             return instance;
     }
 

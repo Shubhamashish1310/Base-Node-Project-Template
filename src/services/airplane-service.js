@@ -31,8 +31,33 @@ async function getAirplanes() {
         }
     }
 
+async function getAirplaneById(id) {
+    try {
+        console.log("Airplane Service layer");
+        const airplane = await airplaneRepository.get(id);
+        return airplane;
+    } catch (error) {
+        if(error.statusCode === 404) {
+            throw new AppError(error.message, error.status, true);
+        }
+    }
+    }
+
+async function destroyAirplane(id) {
+    try {
+        console.log("Airplane Service layer");
+        const airplane = await airplaneRepository.destroy(id);
+        return airplane;
+    } catch (error) {
+        if(error.statusCode === 404) {
+            throw new AppError(error.message, error.status, true);
+        }
+    }
+}
 
 module.exports = {
     createAirplane
-    , getAirplanes
+    , getAirplanes,
+    getAirplaneById,
+    destroyAirplane
 }
