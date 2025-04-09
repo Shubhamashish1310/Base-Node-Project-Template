@@ -10,13 +10,10 @@ class CrudRepository {
 
     // Create a new instance
     async create(data) {
-        try {
+      
             const instance = await this.model.create(data);
             return instance;
-        } catch (error) {
-            Logger.error('Error creating instance repo:', error);
-            throw error;
-        }
+       
     }
 
     // Delete an instance by ID

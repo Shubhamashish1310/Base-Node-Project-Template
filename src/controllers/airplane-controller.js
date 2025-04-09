@@ -1,5 +1,6 @@
 
 const {AirplaneService} = require("../services");
+const {ErrorResponse,SuccessResponse} = require("../utils/common");
 
 async function createAirplane(req, res) {
     try {
@@ -8,17 +9,13 @@ async function createAirplane(req, res) {
             modelNumber: req.body.modelNumber,
             capacity: req.body.capacity,
         });
-        return res.status(201).json({
-            success: true,
-            message: "Airplane created successfully",
-            data: airplane,
-            error: null,
-        });
+        SuccessResponse.data = airplane;
+        SuccessResponse.message = "Airplane created successfully";
+        return res.status(201).json(SuccessResponse);
     } catch (error) {
-        return res.status(500).json({error: error.message,
-            success: false,
-            message: "Error creating airplane controller",
-        });
+        ErrorResponse.message = "Error creating airplane controller";
+        ErrorResponse.error = error.message;
+        return res.status(400).json(ErrorResponse);
     }
 }
 

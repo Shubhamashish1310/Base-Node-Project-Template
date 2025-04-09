@@ -1,11 +1,11 @@
+const {ErrorResponse} = require('../utils/common');
+const AppError = require('../utils/errors/app-error');
 function validateAirplaneRequest(req, res, next) {
     const { modelNumber, capacity } = req.body;
     if (!modelNumber || !capacity) {
-        return res.status(400).json({
-                success: false,
-                message: 'Model number and capacity are required',
-                error: 'Model number and capacity are required'
-        });
+        ErrorResponse.message = "Model number and capacity are required";
+        ErrorResponse.error = new AppError("Model number and capacity are required", 400, true);
+        return res.status(400).json(ErrorResponse);
     }
     next();
 }
