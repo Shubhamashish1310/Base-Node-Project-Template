@@ -20,6 +20,19 @@ async function createAirplane(data) {
         throw error;
     }
 }
+
+async function getAirplanes() {
+    try {
+        console.log("Airplane Service layer");
+        const airplanes = await airplaneRepository.getAll();
+        return airplanes;
+    } catch (error) {
+            throw new AppError(error.message, error.status, true);
+        }
+    }
+
+
 module.exports = {
     createAirplane
+    , getAirplanes
 }

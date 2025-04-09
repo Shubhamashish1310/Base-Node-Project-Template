@@ -6,4 +6,6 @@ console.log("Inside airplane-routes.js");
 // /api/v1/airplanes
 router.post('/',Airplanemiddleware.validateAirplaneRequest, AirplaneController.createAirplane);
 
+router.get('/', AirplaneController.getAirplanes);
+
 module.exports = router;
