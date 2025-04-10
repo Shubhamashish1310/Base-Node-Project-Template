@@ -49,8 +49,7 @@ class CrudRepository {
 
     // Update an instance by ID
     async update(id, data) {
-       
-            const [updatedRowsCount] = await this.model.update(data, {
+  const [updatedRowsCount] = await this.model.update(data, {
                 where: {
                     id: id
                 }

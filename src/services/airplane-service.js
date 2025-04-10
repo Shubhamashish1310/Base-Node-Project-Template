@@ -55,9 +55,29 @@ async function destroyAirplane(id) {
     }
 }
 
+async function updateAirplane(id, data) {
+    try {
+        console.log("Airplane Service layer");
+        const airplane = await airplaneRepository.update(id, data);
+        return airplane;
+    } catch (error) {
+        if(error.name === "SequelizeValidationError") {
+            let explanation = error.errors.map((err) => {
+                return err.message;
+            });
+            explanation = explanation.join(", ");
+            console.log("explanation", explanation);
+            throw new AppError(explanation, error.status, true);
+        }
+        console.log("in servicve error service", error);
+        throw error;
+    }
+}
+
 module.exports = {
     createAirplane
     , getAirplanes,
     getAirplaneById,
-    destroyAirplane
+    destroyAirplane,
+    updateAirplane
 }
