@@ -9,24 +9,15 @@ module.exports = {
      * Example:
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
-    await queryInterface.addColumn('Airports', 'cityId', {
-      type: Sequelize.INTEGER,
-      references: {
-        model: 'Cities',
-        key: 'id'
-      },
-      onUpdate: 'CASCADE',
-      onDelete: 'SET NULL'
-    });
     await queryInterface.addConstraint('Airports', {
       fields: ['cityId'],
-      type: 'foreign key',
+      type: 'FOREIGN KEY',
       name: 'fk_city_airport',
       references: {
         table: 'Cities',
         field: 'id'
       },
-      onDelete: 'SET NULL', 
+      onDelete: 'CASCADE', 
       onUpdate: 'CASCADE'
     });
   },
