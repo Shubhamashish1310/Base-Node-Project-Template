@@ -7,14 +7,14 @@ console.log("Inside city-routes.js");
 // /api/v1/cities
 router.post('/', CityMiddleware.validateCityRequest,CityController.createCity);
 // /api/v1/cities
-// router.get('/', CityControllerController.getCities);
+router.get('/', CityController.getCities);
 
-// // /api/v1/cities/:id
-// router.get('/:id', CityControllerController.getCityById);
+// /api/v1/cities/:id
+router.get('/:id', CityController.getCityById);
 
-// router.delete('/:id', CityControllerController.destroyCity);
+router.delete('/:id', CityController.destroyCity);
 
-// router.put('/:id', CityControllerController.updateCity);
+router.put('/:id',CityMiddleware.validateCityRequest, CityController.updateCity);
 
 
 module.exports = router;
