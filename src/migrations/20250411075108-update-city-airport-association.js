@@ -17,8 +17,7 @@ module.exports = {
         table: 'Cities',
         field: 'id'
       },
-      onDelete: 'CASCADE', 
-      onUpdate: 'CASCADE'
+      onDelete: 'CASCADE'
     });
   },
 
