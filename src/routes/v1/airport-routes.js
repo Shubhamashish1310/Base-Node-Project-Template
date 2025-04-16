@@ -11,7 +11,7 @@ router.get('/', AirportController.getAirports);
 // /api/v1/airports/:id
 
 // /api/v1/airports/:id
-// router.put('/:id', AirportMiddleware.validateAirportRequest, AirportController.updateAirport);
+router.put('/:id', AirportMiddleware.validateAirportRequest, AirportController.updateAirport);
 router.delete('/:id', AirportController.destroyAirport);
 
 module.exports = router;

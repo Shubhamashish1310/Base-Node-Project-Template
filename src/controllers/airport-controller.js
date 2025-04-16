@@ -64,9 +64,23 @@ async function destroyAirport(req, res) {
     }
 }
 
+async function updateAirport(req, res) {
+    try {
+        console.log("Updating airport by ID");
+        const airport = await AirportService.updateAirport(req.params.id, req.body);
+        SuccessResponse.data = airport;
+        SuccessResponse.message = "Airport updated successfully";
+        return res.status(200).json(SuccessResponse);
+    } catch (error) {
+        ErrorResponse.message = "Error updating airport by ID controller";
+        ErrorResponse.error = error.message;
+        return res.status(400).json(ErrorResponse);
+    }
+}
 module.exports = {
     createAirport,
     getAirports,
     getAirportById,
     destroyAirport,
+    updateAirport,
 };

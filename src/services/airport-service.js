@@ -56,17 +56,17 @@ async function destroyAirport(id) {
     }
 }
 
-// async function updateAirport(id, data) {
-//     try {
-//         console.log("Airport Service layer");
-//         const airport = await airportRepository.update(id, data);
-//         return airport;
-//     } catch (error) {
-//         if(error.statusCode === 404) {
-//             throw new AppError(error.message, error.status, true);
-//         }
-//     }
-// }
+async function updateAirport(id, data) {
+    try {
+        console.log("Airport Service layer");
+        const airport = await airportRepository.update(id, data);
+        return airport;
+    } catch (error) {
+        if(error.statusCode === 404) {
+            throw new AppError(error.message, error.status, true);
+        }
+    }
+}
 // async function getAirportsByCityId(cityId) {
 //     try {
 //         console.log("Airport Service layer");
@@ -107,7 +107,7 @@ module.exports = {
     getAirports,
     getAirportById,
     destroyAirport,
-    // updateAirport,
+    updateAirport,
     // getAirportsByCityId,
     // getAirportByCode,
     // getAirportByName
