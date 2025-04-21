@@ -26,7 +26,7 @@ Lets take a look inside the `src` folder
   ```
   npm install
   ```
- - In the root directory create a `.env` file and add the following env variables
+ - In the root directory create a `.env` file and add the following env variables;
     ```
         PORT=<port number of your choice>
     ```
@@ -44,5 +44,5 @@ Lets take a look inside the `src` folder
 
  - To run the server execute
  ```
- npm run dev
+ npm run dev 
  ```
