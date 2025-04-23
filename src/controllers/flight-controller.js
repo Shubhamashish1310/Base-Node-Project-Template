@@ -38,8 +38,49 @@ async function getAllFlights(req, res) {
     }
 }
 
+async function getFlightById(req, res) {
+    try {
+        const flight = await FlightService.getFlightById(req.params.id);
+        SuccessResponse.data = flight;
+        SuccessResponse.message = "Flight fetched successfully";
+        return res.status(200).json(SuccessResponse);
+    } catch (error) {
+        ErrorResponse.message = "Error fetching flight controller";
+        ErrorResponse.error = error.message;
+        return res.status(400).json(ErrorResponse);
+    }
+}
+
+async function updateFlight(req, res) {
+    try {
+        const flight = await FlightService.updateFlight(req.params.id, req.body);
+        SuccessResponse.data = flight;
+        SuccessResponse.message = "Flight updated successfully";
+        return res.status(200).json(SuccessResponse);
+    } catch (error) {
+        ErrorResponse.message = "Error updating flight controller";
+        ErrorResponse.error = error.message;
+        return res.status(400).json(ErrorResponse);
+    }
+}
+
+async function deleteFlight(req, res) {
+    try {
+        const flight = await FlightService.deleteFlight(req.params.id);
+        SuccessResponse.data = flight;
+        SuccessResponse.message = "Flight deleted successfully";
+        return res.status(200).json(SuccessResponse);
+    } catch (error) {
+        ErrorResponse.message = "Error deleting flight controller";
+        ErrorResponse.error = error.message;
+        return res.status(400).json(ErrorResponse);
+    }
+}
 
 module.exports = {
     createFlight,
     getAllFlights,
+    getFlightById,
+    updateFlight,
+    deleteFlight
 };

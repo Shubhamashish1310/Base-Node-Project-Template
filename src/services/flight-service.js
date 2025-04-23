@@ -105,8 +105,45 @@ if (query.sort) {
     }
 }
 
+async function getFlightById(id) {
+    try {
+        const flight = await flightRepository.get(id);
+        return flight;
+    } catch (error) {
+        if (error.statusCode === 404) {
+            throw new AppError(error.message, error.status, true);
+        }
+        throw new AppError("Internal Server Error", 500, true);
+    }
+}
+async function updateFlight(id, data) {
+    try {
+        const flight = await flightRepository.update(id, data);
+        return flight;
+    } catch (error) {
+        if (error.statusCode === 404) {
+            throw new AppError(error.message, error.status, true);
+        }
+        throw new AppError("Internal Server Error", 500, true);
+    }
+}
+
+async function deleteFlight(id) {
+    try {
+        const flight = await flightRepository.destroy(id);
+        return flight;
+    } catch (error) {
+        if (error.statusCode === 404) {
+            throw new AppError(error.message, error.status, true);
+        }
+        throw new AppError("Internal Server Error", 500, true);
+    }
+}
 
 module.exports = {
     createFlight,
     getAllFlights,
+    getFlightById,
+    updateFlight,
+    deleteFlight
 };
