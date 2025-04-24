@@ -14,4 +14,8 @@ router.put('/:id', FlightMiddleware.validateFlightCreation, FlightController.upd
 
 router.delete('/:id', FlightController.deleteFlight);
 
+// /api/v1/flights/:id/seats PATCH
+router.patch('/:id/seats', FlightMiddleware.validateUpdateSeatsRequest, FlightController.updateSeats);
+
+
 module.exports = router;

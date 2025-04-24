@@ -10,6 +10,17 @@ function validateFlightCreation(req, res, next) {
     }
     next();
 }
+
+function validateUpdateSeatsRequest(req, res, next) {
+    const { seats } = req.body;
+    if (!seats || isNaN(seats) || seats <= 0) {
+        ErrorResponse.message = "Invalid number of seats";
+        ErrorResponse.error = new AppError("Invalid number of seats", 400, true);
+        return res.status(400).json(ErrorResponse);
+    }
+    next();
+}
 module.exports = {
     validateFlightCreation,
+    validateUpdateSeatsRequest
 };

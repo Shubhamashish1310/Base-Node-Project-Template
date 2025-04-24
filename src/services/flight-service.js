@@ -140,10 +140,23 @@ async function deleteFlight(id) {
     }
 }
 
+async function updateSeats(data){
+    try {
+        const flight = await flightRepository.updateRemainingSeats(data.flightId, data.seats, data.dec);
+        return flight;
+    } catch (error) {
+        if (error.statusCode === 404) {
+            throw new AppError(error.message, error.status, true);
+        }
+        throw new AppError("Internal Server Error", 500, true);
+    }
+}
+
 module.exports = {
     createFlight,
     getAllFlights,
     getFlightById,
     updateFlight,
-    deleteFlight
+    deleteFlight,
+    updateSeats
 };

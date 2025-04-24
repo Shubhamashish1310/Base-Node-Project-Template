@@ -77,10 +77,29 @@ async function deleteFlight(req, res) {
     }
 }
 
+async function updateSeats(req, res) {
+    try {
+        console.log("in controlller",req.body);
+        const flight = await FlightService.updateSeats({
+            flightId: req.params.id,
+            seats: req.body.seats,
+            dec: req.body.dec,
+        });
+        SuccessResponse.data = flight;
+        SuccessResponse.message = "Flight updated successfully";
+        return res.status(200).json(SuccessResponse);
+    } catch (error) {
+        ErrorResponse.message = "Error updating flight controller";
+        ErrorResponse.error = error.message;
+        return res.status(400).json(ErrorResponse);
+    }
+}
+
 module.exports = {
     createFlight,
     getAllFlights,
     getFlightById,
     updateFlight,
-    deleteFlight
+    deleteFlight,
+    updateSeats,
 };
