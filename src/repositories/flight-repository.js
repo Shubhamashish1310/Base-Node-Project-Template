@@ -2,7 +2,8 @@ const {Sequelize} = require('sequelize');
 const CrudRepository = require('./crud-repository');
 const { Flight,Airplane,Airport,City } = require('../models');
 const {addRowLockOnFlights} = require('./queries');
-const db = require('../models')
+const db = require('../models');
+const AppError = require('../utils/errors/app-error');
 class FlightRepository extends CrudRepository {
     constructor() {
         console.log("Inside FlightRepository constructor");
@@ -55,15 +56,24 @@ class FlightRepository extends CrudRepository {
     }
 
     async updateRemainingSeats(flightId, seats,dec=true) {
-        await db.sequelize.query(addRowLockOnFlights(flightId));
-     const flight =await Flight.findByPk(flightId);
-      if(+dec){
-  await flight.decrement('totalSeat', { by: seats}); 
-      }else{
-         await flight.increment('totalSeat', { by: seats, where: { id: flightId } });       
-      }
-      await flight.save();
-        return flight;
+        const transaction = await db.sequelize.transaction();
+        try {
+            await db.sequelize.query(addRowLockOnFlights(flightId));
+            const flight =await Flight.findByPk(flightId);
+             if(+dec){
+         await flight.decrement('totalSeat', { by: seats}, { transaction: transaction }); 
+             }else{
+                await flight.increment('totalSeat', { by: seats, where: { id: flightId } }, { transaction: transaction });       
+             }
+             await transaction.commit();
+             await flight.save();
+               return flight;
+        } catch (error) {
+            await transaction.rollback();
+            console.error("Error in updateRemainingSeats:", error);
+            throw AppError("Unable to update remaining seats", 500, true);
+        }
+       
 }
 }
 

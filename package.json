@@ -1,12 +1,12 @@
 {
-  "name": "base_node_js_project_template",
+  "name": "flight-boooking-service",
   "version": "1.0.0",
-  "description": "A basic started boilerplate project for node",
+  "description": "Flight Booking Service",
   "main": "index.js",
   "scripts": {
     "dev": "npx nodemon src/index.js"
   },
-  "author": "Sanket",
+  "author": "ShubhamAshish",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^16.0.3",
